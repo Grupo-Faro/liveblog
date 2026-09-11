@@ -2,7 +2,6 @@
 
 .liveblog-entry {
 	position: relative;
-	margin-bottom: 1rem;
 
 	// Ensure images don't overflow the entry container
 	img {
@@ -35,10 +34,6 @@
 	border-radius: 50%;
 }
 
-.liveblog-entry-tools {
-	margin-top: 1rem;
-}
-
 .liveblog-entry-tools .liveblog-btn:first-child {
 	margin-right: 0.5rem;
 }
@@ -67,18 +62,20 @@
 }
 
 .liveblog-entry-delete-confirm {
-	background: $color-grey-x-light;
+	background: rgba(255, 255, 255, 0.96);
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	position: absolute;
+	z-index: 3;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	width: 100%;
 	height: 100%;
+	border: 1px solid $color-border;
 }
 
 .liveblog-entry-delete-confirm-buttons {

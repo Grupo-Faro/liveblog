@@ -1,7 +1,7 @@
 {
   "name": "liveblog",
   "description": "Liveblogging done right. Using WordPress",
-  "version": "1.12.2",
+  "version": "1.12.3-elfaro.3",
   "author": "Automattic",
   "private": true,
   "devDependencies": {
@@ -37,6 +37,7 @@
     "start": "wp-scripts start",
     "lint:js": "wp-scripts lint-js ./src",
     "lint:css": "wp-scripts lint-style \"src/**/*.scss\"",
+    "i18n:json": "node bin/make-script-json.js",
     "test": "wp-scripts test-unit-js"
   },
   "overrides": {

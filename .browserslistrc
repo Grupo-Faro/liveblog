@@ -1,0 +1,17 @@
+# Front-end bundle targets.
+#
+# Readers of a news site arrive on old phones, tablets and smart TVs. The
+# @wordpress/scripts defaults ("last 2 versions") let webpack and Babel emit
+# syntax and runtime helpers (globalThis, optional chaining...) that throw on
+# iOS 12/13 or Chrome < 71 and leave the liveblog container empty. Keep the
+# output runnable on those browsers.
+> 0.2%
+last 3 versions
+Firefox ESR
+not dead
+iOS >= 12
+Safari >= 12
+Chrome >= 64
+Edge >= 79
+Samsung >= 9
+not op_mini all

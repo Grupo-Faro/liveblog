@@ -1,0 +1,26 @@
+{
+	"translation-revision-date": "2013-01-23 06:57:27+0000",
+	"generator": "liveblog/bin/make-script-json.js",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "German",
+				"plural-forms": "nplurals=2; plural=n != 1;"
+			},
+			"Preview": [
+				"Vorschau"
+			],
+			"Publish Update": [
+				"Update veröffentlichen"
+			],
+			"Edit": [
+				"Bearbeiten"
+			],
+			"Delete": [
+				"Löschen"
+			]
+		}
+	}
+}

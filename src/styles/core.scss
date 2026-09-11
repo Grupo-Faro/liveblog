@@ -2,4 +2,7 @@
 @use "core/utils" as *;
 // Core Styles
 @use "core/app/all" as app;
+// Theme layer (feed look & feel). Bundled into app.css so the front end gets
+// the styled feed without a second stylesheet.
+@use "core/app/theme";
 @use "core/editor/all" as editor;

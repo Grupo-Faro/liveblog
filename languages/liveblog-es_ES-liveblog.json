@@ -1,0 +1,128 @@
+{
+	"translation-revision-date": "2013-01-23 17:54+0100",
+	"generator": "liveblog/bin/make-script-json.js",
+	"domain": "messages",
+	"locale_data": {
+		"messages": {
+			"": {
+				"domain": "messages",
+				"lang": "es_ES",
+				"plural-forms": "nplurals=2; plural=(n != 1);"
+			},
+			"Crop Image": [
+				"Recortar imagen"
+			],
+			"Close": [
+				"Cerrar"
+			],
+			"Crop preview": [
+				"Vista previa del recorte"
+			],
+			"Drag to select the area you want to keep. Click Apply to use the full image without cropping.": [
+				"Arrastra para seleccionar la zona que quieres conservar. Pulsa Aplicar para usar la imagen completa sin recortar."
+			],
+			"Cancel": [
+				"Cancelar"
+			],
+			"Processing…": [
+				"Procesando…"
+			],
+			"Apply": [
+				"Aplicar"
+			],
+			"Add link": [
+				"Añadir enlace"
+			],
+			"Bold (Ctrl+B)": [
+				"Negrita (Ctrl+B)"
+			],
+			"Italic (Ctrl+I)": [
+				"Cursiva (Ctrl+I)"
+			],
+			"Underline (Ctrl+U)": [
+				"Subrayado (Ctrl+U)"
+			],
+			"Ordered List": [
+				"Lista numerada"
+			],
+			"Unordered List": [
+				"Lista con viñetas"
+			],
+			"Blockquote": [
+				"Cita"
+			],
+			"Add Link": [
+				"Añadir enlace"
+			],
+			"Remove Link": [
+				"Quitar enlace"
+			],
+			"Uploading…": [
+				"Subiendo…"
+			],
+			"Insert Image": [
+				"Insertar imagen"
+			],
+			"Liveblog entry content": [
+				"Contenido de la entrada"
+			],
+			"Start writing your liveblog entry…": [
+				"Empieza a escribir la entrada del directo…"
+			],
+			"Confirm": [
+				"Confirmar"
+			],
+			"Type to search for more authors…": [
+				"Escribe para buscar más autores…"
+			],
+			"Add New Entry": [
+				"Añadir nueva entrada"
+			],
+			"Visual": [
+				"Visual"
+			],
+			"Text": [
+				"Texto"
+			],
+			"Preview": [
+				"Vista previa"
+			],
+			"Loading editor…": [
+				"Cargando editor…"
+			],
+			"Authors:": [
+				"Autores:"
+			],
+			"Entry authors": [
+				"Autores de la entrada"
+			],
+			"No authors matched": [
+				"No hay autores que coincidan"
+			],
+			"Loading authors…": [
+				"Cargando autores…"
+			],
+			"Publish Update": [
+				"Publicar"
+			],
+			"Publish New Entry": [
+				"Publicar entrada"
+			],
+			"Close Editor": [
+				"Cerrar editor"
+			],
+			"Edit": [
+				"Editar"
+			],
+			"Delete": [
+				"Borrar"
+			],
+			"Are you sure you want to delete this entry?": [
+				"¿Seguro que quieres borrar esta entrada?"
+			],
+			"Are you sure you want to remove this entry as a key event?": [
+				"¿Seguro que quieres quitar esta entrada de los momentos clave?"
+			]
+		}
+	}
+}

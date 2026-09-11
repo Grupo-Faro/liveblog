@@ -263,11 +263,12 @@ class WPCOM_Liveblog_Entry {
 	 */
 	public static function render_content( $content, $comment = false ) {
 		if ( apply_filters( 'liveblog_entry_enable_embeds', true ) ) {
-			if ( get_option( 'embed_autourls' ) ) {
-				$wpcom_liveblog_entry_embed = new WPCOM_Liveblog_Entry_Embed();
-				$content                    = $wpcom_liveblog_entry_embed->autoembed( $content, $comment );
-			}
-			$content = do_shortcode( $content );
+			// Do not gate this on the `embed_autourls` option: WordPress removed
+			// it in 3.5 (auto-embeds are always on) and core deletes it from the
+			// database on every upgrade, which silently switched embeds off here.
+			$wpcom_liveblog_entry_embed = new WPCOM_Liveblog_Entry_Embed();
+			$content                    = $wpcom_liveblog_entry_embed->autoembed( $content, $comment );
+			$content                    = do_shortcode( $content );
 		}
 
 		// Filter image attributes based on allowed list.

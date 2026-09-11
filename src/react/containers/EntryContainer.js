@@ -78,6 +78,9 @@ class EntryContainer extends Component {
 
   render() {
     const { entry, config } = this.props;
+    const relative = timeAgo(entry.entry_time, config.locale);
+    const entryDate = new Date(entry.entry_time * 1000);
+    const isoDate = Number.isNaN(entryDate.getTime()) ? undefined : entryDate.toISOString();
 
     return (
       <article
@@ -87,8 +90,16 @@ class EntryContainer extends Component {
       >
         <aside className="liveblog-entry-aside">
           <a className="liveblog-meta-time" href={entry.share_link} target="_blank" rel="noopener noreferrer">
-            <span>{timeAgo(entry.entry_time, config.locale)}</span>
-            <span>{formattedTime(entry.entry_time, config.utc_offset, config.date_format, config.timezone_string)}</span>
+            <time
+              className="liveblog-meta-time-clock"
+              dateTime={isoDate}
+            >
+              {formattedTime(entry.entry_time, config.utc_offset, config.time_format || 'H:i', config.timezone_string)}
+            </time>
+            <span className="liveblog-meta-time-date">
+              {formattedTime(entry.entry_time, config.utc_offset, config.date_format, config.timezone_string)}
+            </span>
+            {relative && <span className="liveblog-meta-time-ago">{relative}</span>}
           </a>
         </aside>
         <div className="liveblog-entry-main">

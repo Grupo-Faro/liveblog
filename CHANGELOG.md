@@ -1,5 +1,32 @@
 # Changelog
 
+## [1.12.3-elfaro.3] - 2026-09-11 (El Faro de Ceuta fork)
+
+### Added
+
+* feat: translate the editor UI. The plugin never called `wp_set_script_translations()`, so every `__()` in the React bundle (toolbar, tabs, buttons, prompts) stayed in English. The bundle now loads `languages/liveblog-<locale>-liveblog.json`, generated from the PO catalogues with `npm run i18n:json` (`bin/make-script-json.js`); the Spanish catalogue covers all 38 editor strings.
+
+## [1.12.3-elfaro.2] - 2026-09-11 (El Faro de Ceuta fork)
+
+### Fixed
+
+* fix: load the bundled translation catalogue alongside a WordPress.org language pack. `load_plugin_textdomain()` stops at the language pack, which hid the bundled `.mo` and left fork-only strings ("Live", "Updates: {number}", pagination) in English.
+* fix: run the embed SDKs on the editor preview. The Preview tab inserted the oEmbed markup but never called `triggerOembedLoad()`, so an X/Twitter link showed as a plain quote instead of the embedded post. The preview also reports a request error instead of spinning forever.
+
+## [1.12.3-elfaro.1] - 2026-09-11 (El Faro de Ceuta fork)
+
+### Fixed
+
+* fix: always auto-embed URLs in entries. Rendering was gated on the `embed_autourls` option, which WordPress core deletes from the database on every upgrade, so X/Twitter (and any other) links stopped turning into embeds after a core update.
+* fix: register x.com oEmbed providers. Core only knows twitter.com and x.com pages do not expose oEmbed discovery to WordPress, so x.com links never embedded.
+* fix: stop the feed rendering empty on older browsers. `timeAgo()` no longer throws when `Intl.RelativeTimeFormat` is missing (Safari/iOS < 14, Chrome < 71), the bundle is built for a wider browser range via `.browserslistrc` (no bare `globalThis`), and error boundaries keep one failing entry from unmounting the whole liveblog.
+* fix: hash lazy chunk file names so a chunk cached by the browser from a previous version is never paired with a newer `app.js`.
+
+### Changed
+
+* feat: front-end feed restyled to the site design (JNews theme): timeline layout with the entry time in a left column, theme fonts and colours via `--liveblog-*` custom properties, key-event highlight, status strip ("En directo" / "Directo finalizado"), sticky "new updates" pill, responsive layout for phones.
+* feat: reader-facing strings (status strip, pagination, empty message, load error) come from PHP through `liveblog_settings` and are translated to Spanish; the pagination bar is hidden when there is a single page.
+
 ## [1.12.2] - 2026-06-03
 
 ### Security

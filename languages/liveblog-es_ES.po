@@ -9,6 +9,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-KeywordsList: __;esc_html_e;esc_html__;esc_attr_e;esc_attr__;_e\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-Language: Spanish\n"
@@ -233,3 +235,183 @@ msgstr "http://vip.wordpress.com/"
 
 #~ msgid "This is a liveblog"
 #~ msgstr "Esto es un blog en directo"
+
+#: liveblog.php
+msgid "Live"
+msgstr "En directo"
+
+#: liveblog.php
+msgid "This liveblog has ended"
+msgstr "Directo finalizado"
+
+#: liveblog.php
+msgid "There are no entries on this page."
+msgstr "No hay actualizaciones en esta página."
+
+#: liveblog.php
+msgid "The liveblog could not be loaded. Please reload the page."
+msgstr "No se ha podido cargar el directo. Recarga la página para intentarlo de nuevo."
+
+#: liveblog.php
+msgid "First"
+msgstr "Primera"
+
+#: liveblog.php
+msgid "Previous"
+msgstr "Anterior"
+
+#: liveblog.php
+msgid "Next"
+msgstr "Siguiente"
+
+#: liveblog.php
+msgid "Last"
+msgstr "Última"
+
+#: liveblog.php
+msgid "Page {page} of {pages}"
+msgstr "Página {page} de {pages}"
+
+#: liveblog.php
+msgid "Updates: {number}"
+msgstr "Actualizaciones: {number}"
+
+#: src/react/components/DeleteConfirmation.js:13
+#: src/react/Editor/ImageCropModal.js:170
+#: src/react/Editor/LexicalEditor.js:977
+msgid "Cancel"
+msgstr "Cancelar"
+
+#: src/react/components/DeleteConfirmation.js:19
+msgid "Confirm"
+msgstr "Confirmar"
+
+#: src/react/containers/EventsContainer.js:24
+#: src/react/containers/EntryContainer.js:108
+msgid "Are you sure you want to delete this entry?"
+msgstr "¿Seguro que quieres borrar esta entrada?"
+
+#: src/react/containers/EventsContainer.js:72
+msgid "Are you sure you want to remove this entry as a key event?"
+msgstr "¿Seguro que quieres quitar esta entrada de los momentos clave?"
+
+#: src/react/containers/EntryContainer.js:64
+msgid "Close Editor"
+msgstr "Cerrar editor"
+
+#: src/react/containers/EntryContainer.js:136
+#: src/react/containers/EditorContainer.js:312
+msgid "Loading editor…"
+msgstr "Cargando editor…"
+
+#: src/react/containers/EditorContainer.js:164
+msgid "Type to search for more authors…"
+msgstr "Escribe para buscar más autores…"
+
+#: src/react/containers/EditorContainer.js:281
+msgid "Add New Entry"
+msgstr "Añadir nueva entrada"
+
+#: src/react/containers/EditorContainer.js:287
+msgid "Visual"
+msgstr "Visual"
+
+#: src/react/containers/EditorContainer.js:293
+msgid "Text"
+msgstr "Texto"
+
+#: src/react/containers/EditorContainer.js:337
+msgid "Authors:"
+msgstr "Autores:"
+
+#: src/react/containers/EditorContainer.js:340
+msgid "Entry authors"
+msgstr "Autores de la entrada"
+
+#: src/react/containers/EditorContainer.js:353
+msgid "No authors matched"
+msgstr "No hay autores que coincidan"
+
+#: src/react/containers/EditorContainer.js:353
+msgid "Loading authors…"
+msgstr "Cargando autores…"
+
+#: src/react/containers/EditorContainer.js:357
+msgid "Publish New Entry"
+msgstr "Publicar entrada"
+
+#: src/react/Editor/ImageCropModal.js:131
+msgid "Crop Image"
+msgstr "Recortar imagen"
+
+#: src/react/Editor/ImageCropModal.js:137
+msgid "Close"
+msgstr "Cerrar"
+
+#: src/react/Editor/ImageCropModal.js:154
+msgid "Crop preview"
+msgstr "Vista previa del recorte"
+
+#: src/react/Editor/ImageCropModal.js:159
+msgid "Drag to select the area you want to keep. Click Apply to use the full image without cropping."
+msgstr "Arrastra para seleccionar la zona que quieres conservar. Pulsa Aplicar para usar la imagen completa sin recortar."
+
+#: src/react/Editor/ImageCropModal.js:178
+msgid "Processing…"
+msgstr "Procesando…"
+
+#: src/react/Editor/ImageCropModal.js:178
+msgid "Apply"
+msgstr "Aplicar"
+
+#: src/react/Editor/LexicalEditor.js:969
+msgid "Add link"
+msgstr "Añadir enlace"
+
+#: src/react/Editor/LexicalEditor.js:1215
+msgid "Bold (Ctrl+B)"
+msgstr "Negrita (Ctrl+B)"
+
+#: src/react/Editor/LexicalEditor.js:1222
+msgid "Italic (Ctrl+I)"
+msgstr "Cursiva (Ctrl+I)"
+
+#: src/react/Editor/LexicalEditor.js:1229
+msgid "Underline (Ctrl+U)"
+msgstr "Subrayado (Ctrl+U)"
+
+#: src/react/Editor/LexicalEditor.js:1236
+msgid "Ordered List"
+msgstr "Lista numerada"
+
+#: src/react/Editor/LexicalEditor.js:1243
+msgid "Unordered List"
+msgstr "Lista con viñetas"
+
+#: src/react/Editor/LexicalEditor.js:1250
+msgid "Blockquote"
+msgstr "Cita"
+
+#: src/react/Editor/LexicalEditor.js:1258
+msgid "Add Link"
+msgstr "Añadir enlace"
+
+#: src/react/Editor/LexicalEditor.js:1274
+msgid "Remove Link"
+msgstr "Quitar enlace"
+
+#: src/react/Editor/LexicalEditor.js:1282
+msgid "Uploading…"
+msgstr "Subiendo…"
+
+#: src/react/Editor/LexicalEditor.js:1282
+msgid "Insert Image"
+msgstr "Insertar imagen"
+
+#: src/react/Editor/LexicalEditor.js:1354
+msgid "Liveblog entry content"
+msgstr "Contenido de la entrada"
+
+#: src/react/Editor/LexicalEditor.js:1359
+msgid "Start writing your liveblog entry…"
+msgstr "Empieza a escribir la entrada del directo…"

@@ -17,37 +17,79 @@
 }
 
 .liveblog-btn-small {
-	font-size: 0.8rem;
-	padding: 0.5rem 1rem;
+	padding: 6px 12px;
+	border: 1px solid $color-border;
+	background: $color-surface;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	color: $color-primary;
 }
 
+.liveblog-btn-small:hover {
+	border-color: $color-primary;
+	background: $color-primary;
+	color: #fff;
+}
+
+// "N new updates" pill, sticks below the theme's sticky header.
 .liveblog-update-btn-container {
 	width: 100%;
 	display: flex;
 	justify-content: center;
 	position: sticky;
 	z-index: 5;
-	top: 50px;
+	top: 56px;
+	margin: 0 0 12px;
+	pointer-events: none;
+
+	@include mq($until: small) {
+		top: 66px;
+	}
 }
 
 .liveblog-update-btn {
-	color: #fff;
+	display: inline-flex;
+	align-items: center;
+	padding: 10px 20px;
+	border-radius: 999px;
 	background: $color-primary;
-	font-size: 16px;
-	border-radius: 50px;
+	box-shadow: 0 6px 18px rgba(15, 45, 99, 0.28);
+	font-family: $font-family-heading;
+	font-size: 14px;
+	font-weight: 700;
+	color: #fff;
+	pointer-events: auto;
 }
 
 .liveblog-update-btn:hover {
-	background: color.adjust($raw-color-primary, $lightness: -10%);
+	background: $color-accent;
+	color: #fff;
+}
+
+.liveblog-update-btn-dot {
+	width: 8px;
+	height: 8px;
+	margin-right: 10px;
+	border-radius: 50%;
+	background: #fff;
+	animation: liveblog-blink 1.2s ease-in-out infinite;
+}
+
+@keyframes liveblog-blink {
+
+	50% {
+		opacity: 0.35;
+	}
 }
 
 .liveblog-btn-delete {
-	background: $color-warning;
-	color: #fff;
-	border: none;
+	border-color: $color-warning;
+	color: $color-warning;
 }
 
 .liveblog-btn-delete:hover {
-	background: color.adjust($raw-color-warning, $lightness: -10%);
+	border-color: $color-warning;
+	background: $color-warning;
+	color: #fff;
 }
-

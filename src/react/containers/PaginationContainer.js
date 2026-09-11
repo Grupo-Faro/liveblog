@@ -7,47 +7,54 @@ import * as userActions from '../actions/userActions';
 
 class PaginationContainer extends Component {
   render() {
-    const { page, pages, getEntriesPaginated } = this.props;
+    const { page, pages, getEntriesPaginated, config } = this.props;
+
+    // A single page needs no pagination chrome.
+    if (!pages || pages <= 1) return null;
 
     const isFirstPage = (page === 1);
     const isLastPage = (page === pages);
+    const hiddenClass = hidden => (hidden ? 'liveblog-btn--hide' : '');
+    const pageOf = (config.pagination_page_of || 'Page {page} of {pages}')
+      .replace('{page}', page)
+      .replace('{pages}', pages);
 
     return (
-      <div className="liveblog-pagination">
+      <nav className="liveblog-pagination" aria-label={pageOf}>
         <div>
           <button
             disabled={isFirstPage}
-            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-first ${isFirstPage && 'liveblog-btn--hide'}`}
+            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-first ${hiddenClass(isFirstPage)}`}
             onClick={() => getEntriesPaginated(1, 'first')}
           >
-            First
+            {config.pagination_first || 'First'}
           </button>
           <button
             disabled={isFirstPage}
-            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-prev ${isFirstPage && 'liveblog-btn--hide'}`}
+            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-prev ${hiddenClass(isFirstPage)}`}
             onClick={() => getEntriesPaginated((page - 1), 'last')}
           >
-            Prev
+            {config.pagination_prev || 'Previous'}
           </button>
         </div>
-        <span className="liveblog-pagination-pages">{page} of {pages}</span>
+        <span className="liveblog-pagination-pages">{pageOf}</span>
         <div>
           <button
             disabled={isLastPage}
-            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-next ${isLastPage && 'liveblog-btn--hide'}`}
+            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-next ${hiddenClass(isLastPage)}`}
             onClick={() => getEntriesPaginated((page + 1), 'first')}
           >
-            Next
+            {config.pagination_next || 'Next'}
           </button>
           <button
             disabled={isLastPage}
-            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-last ${isLastPage && 'liveblog-btn--hide'}`}
+            className={`liveblog-btn liveblog-pagination-btn liveblog-pagination-last ${hiddenClass(isLastPage)}`}
             onClick={() => getEntriesPaginated(pages, 'first')}
           >
-            Last
+            {config.pagination_last || 'Last'}
           </button>
         </div>
-      </div>
+      </nav>
     );
   }
 }
@@ -56,11 +63,17 @@ PaginationContainer.propTypes = {
   page: PropTypes.number,
   pages: PropTypes.number,
   getEntriesPaginated: PropTypes.func,
+  config: PropTypes.object,
+};
+
+PaginationContainer.defaultProps = {
+  config: {},
 };
 
 const mapStateToProps = state => ({
   page: state.pagination.page,
   pages: state.pagination.pages,
+  config: state.config,
 });
 
 const mapDispatchToProps = dispatch =>

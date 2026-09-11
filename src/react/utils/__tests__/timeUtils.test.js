@@ -6,6 +6,21 @@ describe('time utils', () => {
   });
 
   describe('timeAgo', () => {
+    it('should return an empty string when Intl.RelativeTimeFormat is unavailable', () => {
+      const original = Intl.RelativeTimeFormat;
+      // Simulate Safari/iOS < 14 and Chrome < 71.
+      Intl.RelativeTimeFormat = undefined;
+      try {
+        expect(timeAgo(Math.floor(Date.now() / 1000) - 300, 'es_ES')).toBe('');
+      } finally {
+        Intl.RelativeTimeFormat = original;
+      }
+    });
+
+    it('should return an empty string for an invalid locale tag', () => {
+      expect(timeAgo(Math.floor(Date.now() / 1000) - 300, 'not a locale')).toBe('');
+    });
+
     it('should return relative time for recent timestamps', () => {
       const now = Math.floor(Date.now() / 1000);
       const result = timeAgo(now);

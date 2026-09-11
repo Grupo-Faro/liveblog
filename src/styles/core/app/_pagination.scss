@@ -1,24 +1,46 @@
+@use "../utils" as *;
+
 .liveblog-pagination {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-bottom: 24px;
+	margin: 0 0 22px;
 }
 
 .liveblog-pagination > * {
 	display: flex;
+	align-items: center;
 	text-align: center;
 }
 
 .liveblog-pagination-btn {
-	margin: 2.5px;
-	font-size: 0.8rem;
-	padding: 0.5rem 1rem;
+	margin: 0 6px 0 0;
+	padding: 8px 12px;
+	border: 1px solid $color-border;
+	border-radius: 0;
+	background: $color-surface;
+	font-family: $font-family-heading;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: $color-primary;
+}
+
+.liveblog-pagination-btn:hover,
+.liveblog-pagination-btn:focus {
+	border-color: $color-primary;
+	background: $color-primary;
+	color: #fff;
+}
+
+.liveblog-pagination-btn:last-child {
+	margin-right: 0;
 }
 
 .liveblog-pagination-pages {
 	font-size: 13px;
-	line-height: 12px;
+	line-height: 1;
 }
 
 .liveblog-btn--hide {

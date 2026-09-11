@@ -8,7 +8,7 @@ Real-time liveblogging plugin for WordPress with a React-based editor and a comm
 |----------|-------|
 | **Main file** | `liveblog.php` |
 | **Text domain** | `liveblog` |
-| **Version** | 1.12.2 |
+| **Version** | 1.12.3-elfaro.3 |
 | **Requires PHP** | 7.4+ |
 | **Requires WP** | 6.4+ |
 | **Default branch** | `develop` |
@@ -66,6 +66,7 @@ composer coverage             # tests with HTML coverage report
 npm run build                 # build front-end assets via wp-scripts
 npm run lint:js               # ESLint
 npm run lint:css              # Stylelint
+npm run i18n:json             # regenerate languages/liveblog-<locale>-liveblog.json (JS translations) from the PO files
 npm test                      # JavaScript unit tests (Jest)
 npx wp-env start              # start local WordPress on http://localhost:8888
 ```

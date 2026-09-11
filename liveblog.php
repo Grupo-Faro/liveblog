@@ -3,7 +3,7 @@
  * Plugin Name: Liveblog
  * Plugin URI: http://wordpress.org/extend/plugins/liveblog/
  * Description: Empowers website owners to provide rich and engaging live event coverage to a large, distributed audience.
- * Version:     1.12.2
+ * Version:     1.12.3-elfaro.3
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Author:      WordPress.com VIP, Big Bite Creative and contributors
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		 *
 		 * @var string
 		 */
-		const VERSION = '1.12.2';
+		const VERSION = '1.12.3-elfaro.3';
 
 		/**
 		 * Rewrites version for flushing rewrite rules.
@@ -253,6 +253,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		 */
 		public static function load() {
 			load_plugin_textdomain( 'liveblog', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+			self::load_bundled_textdomain();
 
 			if ( self::is_wp_too_old() ) {
 				self::add_old_wp_notice();
@@ -367,6 +368,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		private static function add_actions() {
 			add_action( 'init', array( __CLASS__, 'init' ) );
 			add_action( 'init', array( __CLASS__, 'add_rewrite_rules' ) );
+			add_action( 'init', array( __CLASS__, 'register_oembed_providers' ) );
 			add_action( 'permalink_structure_changed', array( __CLASS__, 'add_rewrite_rules' ) );
 			// Flush the rewrite rules a lot later so that we don't interfere with other plugins using rewrite rules.
 			add_action( 'init', array( __CLASS__, 'flush_rewrite_rules' ), 1000 );
@@ -441,6 +443,51 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		private static function register_embed_handlers() {
 			// Register it to run later, because the regex is pretty general and we don't want it to prevent more specific handlers from running.
 			wp_embed_register_handler( 'liveblog_image', '/\.(png|jpe?g|gif)(\?.*)?$/', array( 'WPCOM_Liveblog', 'image_embed_handler' ), 99 );
+		}
+
+		/**
+		 * Also load the translation catalogue bundled with the plugin.
+		 *
+		 * The load_plugin_textdomain() call stops at the first file it finds, so
+		 * a WordPress.org language pack in wp-content/languages/plugins/ hides
+		 * the bundled .mo completely and any string the pack does not know falls
+		 * back to English. WordPress keeps every file loaded for a text domain
+		 * and looks strings up in all of them, so loading the bundled file as
+		 * well only fills in the gaps.
+		 *
+		 * @return void
+		 */
+		private static function load_bundled_textdomain() {
+			$locale = determine_locale();
+			$mofile = plugin_dir_path( __FILE__ ) . 'languages/liveblog-' . $locale . '.mo';
+
+			load_textdomain( 'liveblog', $mofile, $locale );
+		}
+
+		/**
+		 * Register oEmbed providers that WordPress core does not know about.
+		 *
+		 * Core only matches twitter.com URLs, but X hands out x.com links and
+		 * x.com pages do not expose oEmbed discovery to non-browser user agents,
+		 * so those links were never converted. Twitter's oEmbed endpoint accepts
+		 * both hosts, so map the x.com URL shapes to the same provider.
+		 *
+		 * @return void
+		 */
+		public static function register_oembed_providers() {
+			$endpoint = 'https://publish.twitter.com/oembed';
+			$formats  = array(
+				'#https?://(www\.)?x\.com/\w{1,15}/status(es)?/.*#i',
+				'#https?://(www\.)?x\.com/\w{1,15}$#i',
+				'#https?://(www\.)?x\.com/\w{1,15}/likes$#i',
+				'#https?://(www\.)?x\.com/\w{1,15}/lists/.*#i',
+				'#https?://(www\.)?x\.com/\w{1,15}/timelines/.*#i',
+				'#https?://(www\.)?x\.com/i/moments/.*#i',
+			);
+
+			foreach ( $formats as $format ) {
+				wp_oembed_add_provider( $format, $endpoint, true );
+			}
 		}
 
 		/** Public Methods ********************************************************/
@@ -1311,6 +1358,11 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 			// Load client scripts.
 			wp_enqueue_script( self::KEY, plugins_url( 'build/app.js', __FILE__ ), $dependencies, $version, true );
 
+			// Translations for the strings the React bundle passes to wp.i18n:
+			// languages/liveblog-<locale>-liveblog.json, generated from the PO
+			// catalogues with `npm run i18n:json`.
+			wp_set_script_translations( self::KEY, 'liveblog', plugin_dir_path( __FILE__ ) . 'languages' );
+
 			if ( self::is_liveblog_editable() ) {
 				self::add_default_plupload_settings();
 			}
@@ -1371,6 +1423,16 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 						'new_update'                   => __( 'Liveblog: {number} new update', 'liveblog' ),
 						'new_updates'                  => __( 'Liveblog: {number} new updates', 'liveblog' ),
 						'create_link_prompt'           => __( 'Provide URL for link:', 'liveblog' ),
+						'status_live'                  => __( 'Live', 'liveblog' ),
+						'status_archived'              => __( 'This liveblog has ended', 'liveblog' ),
+						'no_entries'                   => __( 'There are no entries on this page.', 'liveblog' ),
+						'load_error'                   => __( 'The liveblog could not be loaded. Please reload the page.', 'liveblog' ),
+						'pagination_first'             => __( 'First', 'liveblog' ),
+						'pagination_prev'              => __( 'Previous', 'liveblog' ),
+						'pagination_next'              => __( 'Next', 'liveblog' ),
+						'pagination_last'              => __( 'Last', 'liveblog' ),
+						'pagination_page_of'           => __( 'Page {page} of {pages}', 'liveblog' ),
+						'updates_count'                => __( 'Updates: {number}', 'liveblog' ),
 
 						// CSS class names.
 						'class_term_prefix'            => __( 'term-', 'liveblog' ),

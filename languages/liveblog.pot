@@ -619,3 +619,31 @@ msgstr ""
 #: src/react/Editor/LexicalEditor.js:1359
 msgid "Start writing your liveblog entry…"
 msgstr ""
+
+#: liveblog.php
+msgid "Live"
+msgstr ""
+
+#: liveblog.php
+msgid "This liveblog has ended"
+msgstr ""
+
+#: liveblog.php
+msgid "There are no entries on this page."
+msgstr ""
+
+#: liveblog.php
+msgid "The liveblog could not be loaded. Please reload the page."
+msgstr ""
+
+#: liveblog.php
+msgid "Previous"
+msgstr ""
+
+#: liveblog.php
+msgid "Page {page} of {pages}"
+msgstr ""
+
+#: liveblog.php
+msgid "Updates: {number}"
+msgstr ""

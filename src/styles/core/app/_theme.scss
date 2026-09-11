@@ -2,9 +2,21 @@
 @use "theme-shared";
 
 /**
- * Theme-specific entry styles
- * Additional styles on top of shared base
+ * Theme-specific styles (non-AMP front end).
+ * Everything shared with AMP lives in theme-shared.
  */
-.liveblog-entry-content {
-	padding-left: 60px;
+
+// Space between the article body and the feed.
+#wpcom-liveblog-container {
+	clear: both;
+	margin-top: 28px;
+}
+
+// Fatal error fallback rendered by the top-level error boundary.
+.liveblog-error {
+	padding: 14px 18px;
+	border-left: 3px solid $color-warning;
+	background: $color-grey-x-light;
+	color: $color-text;
+	font-size: 15px;
 }

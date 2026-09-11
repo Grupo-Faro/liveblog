@@ -11,6 +11,7 @@ import Entries from '../components/Entries';
 import PaginationContainer from '../containers/PaginationContainer';
 import EventsContainer from '../containers/EventsContainer';
 import UpdateButton from '../components/UpdateButton';
+import LiveStatus from '../components/LiveStatus';
 import Editor from '../components/Editor';
 
 class AppContainer extends Component {
@@ -33,18 +34,20 @@ class AppContainer extends Component {
   render() {
     const { page, loading, entries, polling, mergePolling, config, total } = this.props;
     const canEdit = config.is_liveblog_editable === '1';
+    const updatesCount = (config.updates_count || 'Updates: {number}').replace('{number}', total);
 
     return (
-      <div style={{ position: 'relative' }}>
+      <div className="liveblog-app" style={{ position: 'relative' }}>
         {(page === 1 && canEdit) && (
           <Suspense fallback={<div>Loading editor...</div>}>
             <Editor isEditing={false} />
           </Suspense>
         )}
-        <UpdateButton polling={polling} click={() => mergePolling()} />
-        {canEdit && <div className="liveblog-updates-count">Updates: {total}</div>}
+        <LiveStatus state={config.state} config={config} />
+        <UpdateButton polling={polling} click={() => mergePolling()} config={config} />
+        {canEdit && <div className="liveblog-updates-count">{updatesCount}</div>}
         <PaginationContainer />
-        <Entries loading={loading} entries={entries} />
+        <Entries loading={loading} entries={entries} emptyMessage={config.no_entries} />
         <PaginationContainer />
         {this.eventsContainer && <EventsContainer container={this.eventsContainer} title={this.eventsContainer.getAttribute('data-title')} />}
       </div>

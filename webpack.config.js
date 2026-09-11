@@ -27,7 +27,9 @@ module.exports = function (env, argv) {
 		...config.output,
 		path: path.join(__dirname, './build'),
 		filename: '[name].js',
-		chunkFilename: '[name].bundle.js',
+		// Lazy chunks have no ?ver= cache buster, so hash their names: a browser
+		// that cached an old chunk for months must never pair it with a new app.js.
+		chunkFilename: '[name].[contenthash:8].bundle.js',
 		// Custom chunkLoadingGlobal to avoid conflicts
 		chunkLoadingGlobal: 'wpJsonpLiveBlog',
 		// Use 'auto' to determine publicPath at runtime from document.currentScript

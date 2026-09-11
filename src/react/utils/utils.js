@@ -136,12 +136,25 @@ export const getNewestEntry = (current, update, entries = false) => {
  * @return {string} Human-readable time difference (e.g., "5 minutes ago", "vor 5 Minuten").
  */
 export const timeAgo = (timestamp, locale = 'en_US') => {
+  // Safari/iOS < 14 and Chrome < 71 have no Intl.RelativeTimeFormat. A throw
+  // here unmounts the whole React tree and leaves the liveblog empty, so
+  // degrade to no relative label instead (the absolute time is still shown).
+  if (typeof Intl === 'undefined' || typeof Intl.RelativeTimeFormat !== 'function') {
+    return '';
+  }
+
   const seconds = Math.floor(Date.now() / 1000) - timestamp;
 
   // Convert WordPress locale format (de_DE) to BCP 47 format (de-DE)
-  const bcp47Locale = locale.replace('_', '-');
+  const bcp47Locale = (locale || 'en_US').replace('_', '-');
 
-  const rtf = new Intl.RelativeTimeFormat(bcp47Locale, { numeric: 'auto' });
+  let rtf;
+  try {
+    rtf = new Intl.RelativeTimeFormat(bcp47Locale, { numeric: 'auto' });
+  } catch {
+    // Unknown/invalid locale tag.
+    return '';
+  }
 
   // Determine the appropriate unit and value
   const absSeconds = Math.abs(seconds);
