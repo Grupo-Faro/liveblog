@@ -28,6 +28,28 @@ export function getEntries(page, config, newestEntry) {
   return ajax(settings);
 }
 
+/**
+ * Fetch the page of entries that starts at (and includes) `oldestEntry`.
+ *
+ * "Load more" anchors on the oldest entry already on screen instead of on a
+ * page number counted from the newest one: entries arriving at the top of the
+ * feed never shift what sits below the anchor, so appending stays consistent
+ * while the liveblog keeps growing.
+ *
+ * @param {Object} oldestEntry Entry currently at the bottom of the feed.
+ * @param {Object} config      Liveblog settings.
+ * @return {Observable} Ajax observable.
+ */
+export function getOlderEntries(oldestEntry, config) {
+  const settings = {
+    url: `${config.endpoint_url}get-entries/1/${oldestEntry.id}-${oldestEntry.timestamp}`,
+    method: 'GET',
+    crossDomain: config.cross_domain,
+  };
+
+  return ajax(settings);
+}
+
 export function polling(newestEntryTimestamp, config) {
   // Round both timestamps to bucket boundaries for higher cache hitrate.
   // This groups clients with similar state into the same cache cohort.

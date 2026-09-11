@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.3-elfaro.5] - 2026-09-11 (El Faro de Ceuta fork)
+
+### Changed
+
+* feat: replace page navigation with a "Load more updates" button that appends older entries below the feed. Each request is anchored on the oldest entry on screen (not on a page number counted from the newest), so entries arriving at the top never shift what gets loaded, and the feed no longer drops older entries when new ones arrive. The button shows "Showing X of Y", a loading state and a retry message on error; it disappears once everything is loaded. The `pagination_*` strings are replaced by `load_more`, `loading`, `showing_count` and `load_more_error`.
+
 ## [1.12.3-elfaro.4] - 2026-09-11 (El Faro de Ceuta fork)
 
 ### Fixed

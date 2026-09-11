@@ -2,13 +2,15 @@
 
 import { combineEpics, ofType } from 'redux-observable';
 import { of, concat } from 'rxjs';
-import { switchMap, timeout, map, catchError, mergeMap } from 'rxjs/operators';
+import { switchMap, timeout, map, catchError, mergeMap, exhaustMap } from 'rxjs/operators';
 
 import types from '../actions/actionTypes';
 
 import {
   getEntriesSuccess,
   getEntriesFailed,
+  loadMoreEntriesSuccess,
+  loadMoreEntriesFailed,
   pollingSuccess,
   createEntrySuccess,
   createEntryFailed,
@@ -24,6 +26,7 @@ import {
 
 import {
   getEntries,
+  getOlderEntries,
   createEntry,
   updateEntry,
   deleteEntry,
@@ -32,6 +35,7 @@ import {
 import {
   shouldRenderNewEntries,
   getScrollToId,
+  getLastOfObject,
 } from '../utils/utils';
 
 import {
@@ -93,6 +97,37 @@ const getPaginatedEntriesEpic = (action$, state$) =>
     ),
   );
 
+/**
+ * "Load more": fetch the page that starts at the oldest entry on screen and
+ * append whatever was not shown yet. exhaustMap ignores clicks while a request
+ * is in flight.
+ */
+const loadMoreEntriesEpic = (action$, state$) =>
+  action$.pipe(
+    ofType(types.LOAD_MORE_ENTRIES),
+    exhaustMap(() => {
+      const { api: apiState, config } = state$.value;
+      const oldest = getLastOfObject(apiState.entries);
+
+      if (!oldest) {
+        return of(loadMoreEntriesFailed());
+      }
+
+      return getOlderEntries(oldest, config).pipe(
+        timeout(10000),
+        map((res) => {
+          const known = state$.value.api.entries;
+          const appended = (res.response.entries || []).filter(
+            entry => !Object.prototype.hasOwnProperty.call(known, `id_${entry.id}`),
+          ).length;
+
+          return loadMoreEntriesSuccess(res.response, appended);
+        }),
+        catchError(error => of(loadMoreEntriesFailed(error))),
+      );
+    }),
+  );
+
 const createEntryEpic = (action$, state$) =>
   action$.pipe(
     ofType(types.CREATE_ENTRY),
@@ -138,6 +173,7 @@ const getEntriesAfterChangeEpic = action$ =>
 export default combineEpics(
   getEntriesEpic,
   getPaginatedEntriesEpic,
+  loadMoreEntriesEpic,
   createEntryEpic,
   updateEntryEpic,
   deleteEntryEpic,

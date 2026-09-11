@@ -415,3 +415,19 @@ msgstr "Contenido de la entrada"
 #: src/react/Editor/LexicalEditor.js:1359
 msgid "Start writing your liveblog entry…"
 msgstr "Empieza a escribir la entrada del directo…"
+
+#: liveblog.php
+msgid "Load more updates"
+msgstr "Cargar más actualizaciones"
+
+#: liveblog.php
+msgid "Loading…"
+msgstr "Cargando…"
+
+#: liveblog.php
+msgid "Showing {shown} of {total}"
+msgstr "Mostrando {shown} de {total}"
+
+#: liveblog.php
+msgid "Could not load more updates. Please try again."
+msgstr "No se han podido cargar más actualizaciones. Inténtalo de nuevo."

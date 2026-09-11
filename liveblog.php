@@ -3,7 +3,7 @@
  * Plugin Name: Liveblog
  * Plugin URI: http://wordpress.org/extend/plugins/liveblog/
  * Description: Empowers website owners to provide rich and engaging live event coverage to a large, distributed audience.
- * Version:     1.12.3-elfaro.4
+ * Version:     1.12.3-elfaro.5
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Author:      WordPress.com VIP, Big Bite Creative and contributors
@@ -33,7 +33,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		 *
 		 * @var string
 		 */
-		const VERSION = '1.12.3-elfaro.4';
+		const VERSION = '1.12.3-elfaro.5';
 
 		/**
 		 * Rewrites version for flushing rewrite rules.
@@ -1427,11 +1427,10 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 						'status_archived'              => __( 'This liveblog has ended', 'liveblog' ),
 						'no_entries'                   => __( 'There are no entries on this page.', 'liveblog' ),
 						'load_error'                   => __( 'The liveblog could not be loaded. Please reload the page.', 'liveblog' ),
-						'pagination_first'             => __( 'First', 'liveblog' ),
-						'pagination_prev'              => __( 'Previous', 'liveblog' ),
-						'pagination_next'              => __( 'Next', 'liveblog' ),
-						'pagination_last'              => __( 'Last', 'liveblog' ),
-						'pagination_page_of'           => __( 'Page {page} of {pages}', 'liveblog' ),
+						'load_more'                    => __( 'Load more updates', 'liveblog' ),
+						'loading'                      => __( 'Loading…', 'liveblog' ),
+						'showing_count'                => __( 'Showing {shown} of {total}', 'liveblog' ),
+						'load_more_error'              => __( 'Could not load more updates. Please try again.', 'liveblog' ),
 						'updates_count'                => __( 'Updates: {number}', 'liveblog' ),
 
 						// CSS class names.

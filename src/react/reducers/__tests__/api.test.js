@@ -12,6 +12,9 @@ import {
   getEntriesSuccess,
   getEntriesFailed,
   pollingSuccess,
+  loadMoreEntries,
+  loadMoreEntriesSuccess,
+  loadMoreEntriesFailed,
 } from '../../actions/apiActions';
 
 describe('api reducer', () => {
@@ -73,5 +76,42 @@ describe('api reducer', () => {
     expect(
       api(stateAfterGetEntriesSuccess, pollingSuccess(pollingData, shouldRenderNewEntries)),
     ).toEqual(stateAfterPollingSuccess);
+  });
+
+  describe('load more', () => {
+    const loaded = api(initialState, getEntriesSuccess(apiData, true));
+
+    it('flags the request and appends older entries below the existing ones', () => {
+      const loading = api(loaded, loadMoreEntries());
+      expect(loading.loadingMore).toBe(true);
+
+      const existing = Object.values(loaded.entries);
+      const anchor = existing[existing.length - 1];
+      const response = {
+        entries: [
+          { ...anchor },
+          { id: 'older-1', type: 'new', timestamp: 2 },
+          { id: 'older-2', type: 'new', timestamp: 1 },
+        ],
+        page: 1,
+        pages: 1,
+        total: 3,
+      };
+
+      const next = api(loading, loadMoreEntriesSuccess(response, 2));
+      const keys = Object.keys(next.entries);
+
+      expect(next.loadingMore).toBe(false);
+      expect(next.loadMoreError).toBe(false);
+      expect(keys.slice(0, existing.length)).toEqual(Object.keys(loaded.entries));
+      expect(keys.slice(-2)).toEqual(['id_older-1', 'id_older-2']);
+    });
+
+    it('records a failure and releases the button', () => {
+      expect(api(api(loaded, loadMoreEntries()), loadMoreEntriesFailed())).toMatchObject({
+        loadingMore: false,
+        loadMoreError: true,
+      });
+    });
   });
 });

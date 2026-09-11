@@ -6,6 +6,8 @@ export const initialState = {
   page: 1,
   pages: 1,
   total: 0,
+  // Whether older entries exist below the ones on screen ("load more").
+  hasMore: false,
 };
 
 export const pagination = (state = initialState, action) => {
@@ -22,6 +24,16 @@ export const pagination = (state = initialState, action) => {
         pages: Math.max(action.payload.pages, 1),
         page: action.payload.page,
         total: action.payload.total || 0,
+        hasMore: (action.payload.page || 1) < Math.max(action.payload.pages, 1),
+      };
+
+    case 'LOAD_MORE_ENTRIES_SUCCESS':
+      // The response is anchored on the oldest entry shown, so `pages` counts
+      // from there: more than one page means something older is still left.
+      // A response that added nothing (stale anchor) stops offering the button.
+      return {
+        ...state,
+        hasMore: action.appended > 0 && Math.max(action.payload.pages, 1) > 1,
       };
 
     case 'MERGE_POLLING_INTO_ENTRIES':
@@ -51,6 +63,9 @@ export const pagination = (state = initialState, action) => {
         pages: action.renderNewEntries
           ? getPollingPages(state.pages, action.payload.pages)
           : state.pages,
+        total: action.renderNewEntries
+          ? state.total + (action.newCount || 0)
+          : state.total,
       };
 
     default:

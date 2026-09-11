@@ -23,15 +23,40 @@ export const getEntriesFailed = () => ({
   error: true,
 });
 
+export const loadMoreEntries = () => ({
+  type: types.LOAD_MORE_ENTRIES,
+});
+
+/**
+ * @param {Object} payload  Paged response anchored on the oldest entry shown.
+ * @param {number} appended How many entries of the response were not on screen yet.
+ */
+export const loadMoreEntriesSuccess = (payload, appended = 0) => ({
+  type: types.LOAD_MORE_ENTRIES_SUCCESS,
+  payload,
+  appended,
+});
+
+export const loadMoreEntriesFailed = () => ({
+  type: types.LOAD_MORE_ENTRIES_FAILED,
+  error: true,
+});
+
 export const startPolling = payload => ({
   type: types.START_POLLING,
   payload,
 });
 
-export const pollingSuccess = (payload, renderNewEntries) => ({
+/**
+ * @param {Object}  payload          Polling response.
+ * @param {boolean} renderNewEntries Whether new entries go straight into the feed.
+ * @param {number}  newCount         New entries in the response not on screen yet.
+ */
+export const pollingSuccess = (payload, renderNewEntries, newCount = 0) => ({
   type: types.POLLING_SUCCESS,
   payload,
   renderNewEntries,
+  newCount,
 });
 
 export const pollingFailed = () => ({

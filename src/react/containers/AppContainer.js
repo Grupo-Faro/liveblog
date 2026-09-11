@@ -8,7 +8,7 @@ import * as apiActions from '../actions/apiActions';
 import * as configActions from '../actions/configActions';
 import * as eventsActions from '../actions/eventsActions';
 import Entries from '../components/Entries';
-import PaginationContainer from '../containers/PaginationContainer';
+import LoadMoreContainer from '../containers/LoadMoreContainer';
 import EventsContainer from '../containers/EventsContainer';
 import UpdateButton from '../components/UpdateButton';
 import LiveStatus from '../components/LiveStatus';
@@ -46,9 +46,8 @@ class AppContainer extends Component {
         <LiveStatus state={config.state} config={config} />
         <UpdateButton polling={polling} click={() => mergePolling()} config={config} />
         {canEdit && <div className="liveblog-updates-count">{updatesCount}</div>}
-        <PaginationContainer />
         <Entries loading={loading} entries={entries} emptyMessage={config.no_entries} />
-        <PaginationContainer />
+        <LoadMoreContainer />
         {this.eventsContainer && <EventsContainer container={this.eventsContainer} title={this.eventsContainer.getAttribute('data-title')} />}
       </div>
     );
@@ -73,9 +72,10 @@ AppContainer.propTypes = {
 const mapStateToProps = state => ({
   page: state.pagination.page,
   loading: state.api.loading,
+  // Every loaded entry stays on screen: the server caps each request at
+  // entries_per_page and "load more" appends older pages below.
   entries: Object.keys(state.api.entries)
-    .map(key => state.api.entries[key])
-    .slice(0, state.config.entries_per_page),
+    .map(key => state.api.entries[key]),
   polling: Object.keys(state.polling.entries),
   config: state.config,
   total: state.pagination.total,

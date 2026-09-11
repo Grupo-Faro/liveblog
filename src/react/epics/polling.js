@@ -33,16 +33,23 @@ const startPollingEpic = (action$, state$) =>
         exhaustMap(() =>
           pollingApi(state$.value.polling.newestEntry.timestamp, state$.value.config).pipe(
             timeout(10000),
-            map(res =>
-              pollingSuccess(
+            map((res) => {
+              const known = state$.value.api.entries;
+              const newCount = (res.response.entries || []).filter(
+                entry => entry.type === 'new'
+                  && !Object.prototype.hasOwnProperty.call(known, `id_${entry.id}`),
+              ).length;
+
+              return pollingSuccess(
                 res.response,
                 shouldRenderNewEntries(
                   state$.value.pagination.page,
                   state$.value.api.entries,
                   state$.value.polling.entries,
                 ),
-              ),
-            ),
+                newCount,
+              );
+            }),
             catchError(error => of(pollingFailed(error))),
           ),
         ),

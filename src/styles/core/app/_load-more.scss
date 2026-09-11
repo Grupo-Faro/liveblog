@@ -1,0 +1,55 @@
+@use "../utils" as *;
+
+// "Load more" block under the feed.
+.liveblog-load-more {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 4px 0 28px;
+	text-align: center;
+}
+
+.liveblog-load-more-count {
+	margin: 0 0 10px;
+	font-size: 13px;
+	color: $color-text-muted;
+}
+
+.liveblog-load-more-error {
+	margin: 0 0 10px;
+	font-size: 13px;
+	color: $color-warning;
+}
+
+.liveblog-load-more-btn {
+	min-width: 240px;
+	padding: 12px 24px;
+	border: 2px solid $color-primary;
+	border-radius: 999px;
+	background: $color-surface;
+	font-family: $font-family-heading;
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	color: $color-primary;
+
+	@include mq($until: small) {
+		width: 100%;
+	}
+}
+
+.liveblog-load-more-btn:hover,
+.liveblog-load-more-btn:focus {
+	background: $color-primary;
+	color: #fff;
+}
+
+.liveblog-load-more-btn[disabled] {
+	opacity: 0.6;
+	cursor: default;
+}
+
+.liveblog-load-more-btn[disabled]:hover {
+	background: $color-surface;
+	color: $color-primary;
+}

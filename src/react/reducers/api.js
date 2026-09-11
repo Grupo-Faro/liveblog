@@ -10,6 +10,8 @@ export const initialState = {
   entries: {},
   newestEntry: false,
   nonce: false,
+  loadingMore: false,
+  loadMoreError: false,
 };
 
 export const api = (state = initialState, action) => {
@@ -40,6 +42,30 @@ export const api = (state = initialState, action) => {
         ...state,
         loading: false,
         error: true,
+      };
+
+    case 'LOAD_MORE_ENTRIES':
+      return {
+        ...state,
+        loadingMore: true,
+        loadMoreError: false,
+      };
+
+    case 'LOAD_MORE_ENTRIES_SUCCESS':
+      // applyUpdate keeps existing keys in place and appends unknown ones, so
+      // the older entries land below everything already on screen.
+      return {
+        ...state,
+        loadingMore: false,
+        loadMoreError: false,
+        entries: applyUpdate(state.entries, action.payload.entries || []),
+      };
+
+    case 'LOAD_MORE_ENTRIES_FAILED':
+      return {
+        ...state,
+        loadingMore: false,
+        loadMoreError: true,
       };
 
     case 'POLLING_SUCCESS':

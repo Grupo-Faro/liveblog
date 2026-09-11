@@ -8,7 +8,7 @@ Real-time liveblogging plugin for WordPress with a React-based editor and a comm
 |----------|-------|
 | **Main file** | `liveblog.php` |
 | **Text domain** | `liveblog` |
-| **Version** | 1.12.3-elfaro.4 |
+| **Version** | 1.12.3-elfaro.5 |
 | **Requires PHP** | 7.4+ |
 | **Requires WP** | 6.4+ |
 | **Default branch** | `develop` |

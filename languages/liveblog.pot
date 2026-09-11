@@ -647,3 +647,19 @@ msgstr ""
 #: liveblog.php
 msgid "Updates: {number}"
 msgstr ""
+
+#: liveblog.php
+msgid "Load more updates"
+msgstr ""
+
+#: liveblog.php
+msgid "Loading…"
+msgstr ""
+
+#: liveblog.php
+msgid "Showing {shown} of {total}"
+msgstr ""
+
+#: liveblog.php
+msgid "Could not load more updates. Please try again."
+msgstr ""
