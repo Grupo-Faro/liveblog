@@ -3,7 +3,7 @@
  * Plugin Name: El Faro Liveblogs
  * Plugin URI: https://github.com/Grupo-Faro/liveblog
  * Description: Coberturas en directo (minuto a minuto) para los diarios de El Faro, con actualizaciones en tiempo real y edición desde la propia página. Derivado del plugin Liveblog de WordPress.com VIP.
- * Version:     1.0.0
+ * Version:     2026.9.0
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Author:      Grupo Faro
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		 *
 		 * @var string
 		 */
-		const VERSION = '1.0.0';
+		const VERSION = '2026.9.0';
 
 		/**
 		 * Rewrites version for flushing rewrite rules.
