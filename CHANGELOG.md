@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.12.3-elfaro.4] - 2026-09-11 (El Faro de Ceuta fork)
+
+### Fixed
+
+* fix: stop the front-end editor freezing the tab on a long-running liveblog. `EditorContainer` and `EntryContainer` subscribed to the whole Redux state (`state => state`), so every 10-second polling tick re-rendered the editor and every entry; as entries accumulated over a match this grew until the browser locked up. Both now subscribe only to the slices they read, and the editor's handlers are bound once so the Lexical plugins no longer re-register their command listeners on every render/keystroke.
+
 ## [1.12.3-elfaro.3] - 2026-09-11 (El Faro de Ceuta fork)
 
 ### Added

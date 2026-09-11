@@ -42,6 +42,18 @@ class EditorContainer extends Component {
       // Store the HTML content for the editor
       editorContent: props.entry ? props.entry.content : '',
     };
+
+    // Bind once. These handlers are passed down to the Lexical editor, whose
+    // plugins key their useEffect cleanup on the handler identity; a fresh
+    // arrow/bind on every render made them unregister and re-register their
+    // command listeners on every keystroke and on every polling re-render.
+    this.onEditorChange = this.onEditorChange.bind(this);
+    this.handleImageUpload = this.handleImageUpload.bind(this);
+    this.handleOnSearch = this.handleOnSearch.bind(this);
+    this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.publish = this.publish.bind(this);
+    this.onSelectAuthorChange = this.onSelectAuthorChange.bind(this);
+    this.getUsers = this.getUsers.bind(this);
   }
 
   setReadOnly(state) {
@@ -277,7 +289,7 @@ class EditorContainer extends Component {
     const { isEditing, config } = this.props;
 
     return (
-      <div className="liveblog-editor-container" onKeyDown={this.handleKeyDown.bind(this)}>
+      <div className="liveblog-editor-container" onKeyDown={this.handleKeyDown}>
         {!isEditing && <h1 className="liveblog-editor-title">{ __( 'Add New Entry', 'liveblog' ) }</h1>}
         <div className="liveblog-editor-tabs">
           <button
@@ -313,11 +325,11 @@ class EditorContainer extends Component {
             <LexicalEditor
               key={previewKey}
               initialContent={this.state.editorContent}
-              onChange={this.onEditorChange.bind(this)}
+              onChange={this.onEditorChange}
               readOnly={readOnly}
               suggestions={suggestions}
-              onSearch={(trigger, text) => this.handleOnSearch(trigger, text)}
-              handleImageUpload={this.handleImageUpload.bind(this)}
+              onSearch={this.handleOnSearch}
+              handleImageUpload={this.handleImageUpload}
             />
           </React.Suspense>
         }
@@ -342,9 +354,9 @@ class EditorContainer extends Component {
           value={authors}
           getOptionValue={(option) => option.key}
           getOptionLabel={(option) => option.name}
-          onChange={this.onSelectAuthorChange.bind(this)}
+          onChange={this.onSelectAuthorChange}
           components={{ Option: AuthorSelectOption }}
-          loadOptions={this.getUsers.bind(this)}
+          loadOptions={this.getUsers}
           defaultOptions={true}
           isClearable={false}
           cacheOptions={false}
@@ -353,7 +365,7 @@ class EditorContainer extends Component {
             inputValue ? __( 'No authors matched', 'liveblog' ) : __( 'Loading authors…', 'liveblog' )
           }
         />
-        <button className="liveblog-btn liveblog-publish-btn" onClick={this.publish.bind(this)}>
+        <button className="liveblog-btn liveblog-publish-btn" onClick={this.publish}>
           {isEditing ? __( 'Publish Update', 'liveblog' ) : __( 'Publish New Entry', 'liveblog' )}
         </button>
       </div>
@@ -372,7 +384,11 @@ EditorContainer.propTypes = {
   getAuthors: PropTypes.func,
 };
 
-const mapStateToProps = state => state;
+// Only the config slice is read here; subscribing to the whole state made the
+// editor (and its Lexical instance) re-render on every polling tick.
+const mapStateToProps = state => ({
+  config: state.config,
+});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({

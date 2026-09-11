@@ -164,7 +164,15 @@ EntryContainer.propTypes = {
   showPopup: PropTypes.bool,
 };
 
-const mapStateToProps = state => state;
+// Subscribe only to the slices this component actually reads. With the whole
+// state (`state => state`) every entry re-rendered on each polling tick, so a
+// long liveblog with many entries kept re-rendering all of them every few
+// seconds until the tab froze. user/config do not change while polling, so
+// connect now bails out of those re-renders.
+const mapStateToProps = state => ({
+  user: state.user,
+  config: state.config,
+});
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
