@@ -8,7 +8,7 @@ Real-time liveblogging plugin for El Faro's WordPress sites, derived from Automa
 |----------|-------|
 | **Main file** | `elfaro-liveblogs.php` |
 | **Text domain** | `liveblog` |
-| **Version** | 1.0.0 |
+| **Version** | 2026.9.0 |
 | **Requires PHP** | 7.4+ |
 | **Requires WP** | 6.4+ |
 | **Default branch** | `develop` |

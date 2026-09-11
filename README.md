@@ -21,7 +21,7 @@ El plugin conserva los mismos datos que el original (las entradas son comentario
 ## Publicar una versión
 
 1. Sube la versión en `elfaro-liveblogs.php` (cabecera y `WPCOM_Liveblog::VERSION`) y en `package.json`, y anota los cambios en `CHANGELOG.md`.
-2. Haz commit y etiqueta: `git tag v1.0.1 && git push origin v1.0.1`.
+2. Haz commit y etiqueta con la misma versión: `git tag v2026.9.1 && git push origin v2026.9.1`. Las versiones siguen el formato `año.mes.parche`.
 3. El workflow **Release** compila los assets, empaqueta `elfaro-liveblogs.zip` y crea la release en GitHub.
 
 WordPress comprueba la última release en cada comprobación de actualizaciones (el resultado se cachea 6 horas; "Comprobar de nuevo" en Escritorio → Actualizaciones lo fuerza) y ofrece la nueva versión en Plugins como con cualquier otro plugin. Si el repositorio pasara a ser privado, define `ELFARO_LIVEBLOGS_GITHUB_TOKEN` en `wp-config.php` con un token de lectura.

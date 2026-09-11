@@ -1,8 +1,8 @@
 # Changelog
 
-## [1.0.0] - 2026-09-11
+## [2026.9.0] - 2026-09-11
 
-First release as a standalone plugin, "El Faro Liveblogs".
+First release as a standalone plugin, "El Faro Liveblogs". Versions follow `year.month.patch`: the repository inherited Automattic's historic `v1.0.0`…`v1.5rc` tags, so plain 1.x release tags would collide with them.
 
 ### Changed
 
