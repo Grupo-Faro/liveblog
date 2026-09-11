@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.0] - 2026-09-11
+
+First release as a standalone plugin, "El Faro Liveblogs".
+
+### Changed
+
+* Renamed the plugin (folder `elfaro-liveblogs`, main file `elfaro-liveblogs.php`, new headers) so WordPress treats it as a different plugin from the wordpress.org "Liveblog" and never offers that one as an update.
+* Updates now come from this repository's GitHub Releases: the `Update URI` header hands the check to `ElFaro_Liveblogs_Updater`, which serves the latest release's `elfaro-liveblogs.zip`. The "Release" workflow builds and publishes that zip on `v*` tags; the wordpress.org deployment workflow and listing assets are gone.
+* Activating the plugin deactivates the original "Liveblog" if it is still active. Entries and post state are shared, so existing liveblogs keep working.
+
+The `1.12.3-elfaro.x` entries below are the interim fork builds; older entries are the upstream Liveblog history this plugin is based on.
+
 ## [1.12.3-elfaro.5] - 2026-09-11 (El Faro de Ceuta fork)
 
 ### Changed

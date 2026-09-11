@@ -1,10 +1,10 @@
 # Contributing
 
-Thanks for your interest in Liveblog! This guide covers how to report bugs, set up a development environment, understand the codebase, and submit changes.
+Thanks for your interest in El Faro Liveblogs, our fork of Automattic's Liveblog! This guide covers how to report bugs, set up a development environment, understand the codebase, and submit changes.
 
 ## Reporting bugs
 
-First check the issue hasn't [already been reported](https://github.com/Automattic/liveblog/issues). When opening a new issue, make sure that:
+First check the issue hasn't [already been reported](https://github.com/Grupo-Faro/liveblog/issues). When opening a new issue, make sure that:
 
 * The bug is reproducible in a standard WordPress install.
 * You have clear steps to reproduce.
@@ -28,7 +28,7 @@ Liveblog uses [`@wordpress/env`](https://www.npmjs.com/package/@wordpress/env) (
 ### Setup
 
 ```bash
-git clone git@github.com:Automattic/liveblog.git
+git clone git@github.com:Grupo-Faro/liveblog.git
 cd liveblog
 composer install
 npm install
@@ -54,7 +54,7 @@ npm run lint:css              # Stylelint
 
 ## Submitting changes
 
-1. [Fork the repo](https://github.com/Automattic/liveblog/fork).
+1. [Fork the repo](https://github.com/Grupo-Faro/liveblog/fork).
 2. Clone your fork.
 3. Create a feature branch from `develop` (the default branch). Use clear naming (e.g. `feature/add-thing` or `fix/issue-123`).
 4. Make your changes; add tests where it makes sense.
@@ -82,7 +82,7 @@ Reviews can take a little time — we're [busy people](https://automattic.com/wo
 
 ### Code organization
 
-* `liveblog.php` — main plugin file.
+* `elfaro-liveblogs.php` — main plugin file.
 * `classes/` — most of the PHP backend (legacy procedural-style classes prefixed `WPCOM_Liveblog_`).
 * `src/react/` — React/Redux front-end (Lexical-based editor).
 * `src/admin/` — admin-side JavaScript.

@@ -1,63 +1,42 @@
-# Liveblog
+# El Faro Liveblogs
 
-Contributors: automattic, garyj, nbachiyski, batmoo, johnjamesjacoby, philipjohn  
-Tags: liveblog, live blog, real-time, news, sports  
-Requires at least: 6.4  
-Requires PHP: 7.4  
-Tested up to: 6.9  
-Stable tag: 1.12.2  
-License: GPLv2 or later  
-License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Plugin de WordPress para las coberturas en directo (minuto a minuto) de los diarios de El Faro. Es un fork independiente del plugin [Liveblog](https://github.com/Automattic/liveblog) de WordPress.com VIP, adaptado al diseño de nuestras webs y mantenido por Grupo Faro. Licencia GPLv2 o posterior.
 
-Empowers website owners to provide rich and engaging live event coverage to a large, distributed audience.
+## Qué cambia respecto al original
 
-## Description
+* Diseño del directo integrado con el tema (línea de tiempo con la hora de cada entrada, colores y tipografías del sitio), franja "En directo" y botón "Cargar más actualizaciones" en lugar de paginación.
+* Enlaces de X/Twitter incrustados siempre, también con `x.com`; la vista previa del editor muestra el embed.
+* Feed que sigue funcionando en navegadores antiguos y editor que no se congela en directos largos.
+* Interfaz de lectores y de redactores en español.
+* Las actualizaciones llegan desde las [releases de este repositorio](https://github.com/Grupo-Faro/liveblog/releases), nunca desde wordpress.org.
 
-Your readers want your updates as quickly as possible, and we think we provide the easiest and most flexible publishing environment to make that happen. Sometimes though, that's just not enough.
+El plugin conserva los mismos datos que el original (las entradas son comentarios y el estado del directo es un meta del post), así que los directos existentes siguen funcionando tras el cambio.
 
-When you're covering a fast-paced event — the latest Apple unveiling, an F1 Grand Prix or the Super Bowl — a full blog post for each individual update is a poor experience for your authors and your audience.
+## Instalación
 
-The [WordPress.com VIP Liveblog Add-On](https://wpvip.com/) was purpose-built to address these issues.
+1. Descarga `elfaro-liveblogs.zip` de la última release.
+2. Plugins → Añadir nuevo → Subir plugin y activa "El Faro Liveblogs". Si el plugin original "Liveblog" estaba activo, se desactiva solo.
+3. Borra el plugin "Liveblog" original y purga la caché de página (W3TC).
 
-Here's what makes it special:
+## Publicar una versión
 
-* Post updates right from the front end of your site (no need to use the `/wp-admin` dashboard).
-* Viewers of your liveblog get new entries served to them instantly and automatically, without needing to refresh.
-* Authors can drag and drop photos straight into the liveblog area, without separate browser tabs or windows.
-* No need for a separate site dedicated to liveblogging — every post can be a liveblog, even existing ones.
+1. Sube la versión en `elfaro-liveblogs.php` (cabecera y `WPCOM_Liveblog::VERSION`) y en `package.json`, y anota los cambios en `CHANGELOG.md`.
+2. Haz commit y etiqueta: `git tag v1.0.1 && git push origin v1.0.1`.
+3. El workflow **Release** compila los assets, empaqueta `elfaro-liveblogs.zip` y crea la release en GitHub.
 
-If you'd like to check out the code and contribute, [join us on GitHub](https://github.com/Automattic/liveblog) — pull requests are more than welcome.
+WordPress comprueba la última release en cada comprobación de actualizaciones (el resultado se cachea 6 horas; "Comprobar de nuevo" en Escritorio → Actualizaciones lo fuerza) y ofrece la nueva versión en Plugins como con cualquier otro plugin. Si el repositorio pasara a ser privado, define `ELFARO_LIVEBLOGS_GITHUB_TOKEN` en `wp-config.php` con un token de lectura.
 
-## Installation
+## Desarrollo
 
-1. Upload the `liveblog` folder to your plugins directory (e.g. `/wp-content/plugins/`).
-2. Activate the plugin through the 'Plugins' menu in WordPress.
-3. Enable the liveblog on any post's edit page.
+```bash
+npm ci                # dependencias del front
+npm run build         # compila build/ (necesario antes de empaquetar)
+npm test              # tests de JavaScript
+npm run lint:js       # ESLint
+npm run lint:css      # Stylelint
+npm run i18n:json     # regenera las traducciones JS desde languages/*.po
+composer cs           # PHPCS (WordPress + VIP)
+composer test:unit    # tests PHP unitarios
+```
 
-## Screenshots
-
-1. The entry form is the simplest possible.
-2. Writers can preview before posting.
-3. New posts are highlighted.
-4. Adding images is a matter of just drag and drop.
-5. Dragged photos are automatically inserted.
-6. Typical liveblog view.
-
-## Documentation
-
-Developer and end-user documentation lives in the [`docs/`](https://github.com/Automattic/liveblog/tree/develop/docs) directory:
-
-* [End user guide](https://github.com/Automattic/liveblog/blob/develop/docs/end-user-guide.md) — for editors and site administrators.
-* [Customization](https://github.com/Automattic/liveblog/blob/develop/docs/customization.md) — entry features, key events, hashtags, commands, emoji, shortcodes, template overrides.
-* [Extending the admin meta box](https://github.com/Automattic/liveblog/blob/develop/docs/admin-meta-box.md)
-* [Hooking into entries](https://github.com/Automattic/liveblog/blob/develop/docs/entry-hooks.md)
-* [Auto-archiving](https://github.com/Automattic/liveblog/blob/develop/docs/auto-archive.md)
-* [WebSocket support](https://github.com/Automattic/liveblog/blob/develop/docs/websockets.md)
-
-## Contributing
-
-See [CONTRIBUTING.md](https://github.com/Automattic/liveblog/blob/develop/CONTRIBUTING.md) for how to set up the development environment and submit changes.
-
-## Changelog
-
-See the [full changelog on GitHub](https://github.com/Automattic/liveblog/blob/develop/CHANGELOG.md).
+La documentación técnica está en [`docs/`](docs/) y en [`AGENTS.md`](AGENTS.md); [`CONTRIBUTING.md`](CONTRIBUTING.md) explica el entorno de desarrollo.

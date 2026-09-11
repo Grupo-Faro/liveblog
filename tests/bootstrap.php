@@ -53,7 +53,7 @@ if ( $is_integration ) {
 	\tests_add_filter(
 		'muplugins_loaded',
 		function (): void {
-			require dirname( __DIR__ ) . '/liveblog.php';
+			require dirname( __DIR__ ) . '/elfaro-liveblogs.php';
 			require dirname( __DIR__ ) . '/vipgo-helper.php';
 		}
 	);

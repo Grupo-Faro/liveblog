@@ -1,18 +1,18 @@
 {
-	"name": "automattic/liveblog",
-	"description": "Liveblogging done right. Using WordPress.",
+	"name": "grupo-faro/elfaro-liveblogs",
+	"description": "El Faro Liveblogs: coberturas en directo para los diarios de El Faro (fork de Liveblog de WordPress.com VIP).",
 	"license": "GPL-2.0-or-later",
 	"type": "wordpress-plugin",
 	"authors": [
 		{
-			"name": "Automattic",
-			"homepage": "https://automattic.com/"
+			"name": "Grupo Faro",
+			"homepage": "https://elfarodeceuta.es/"
 		}
 	],
-	"homepage": "https://github.com/Automattic/liveblog/",
+	"homepage": "https://github.com/Grupo-Faro/liveblog/",
 	"support": {
-		"issues": "https://github.com/Automattic/liveblog/issues",
-		"source": "https://github.com/Automattic/liveblog"
+		"issues": "https://github.com/Grupo-Faro/liveblog/issues",
+		"source": "https://github.com/Grupo-Faro/liveblog"
 	},
 	"require": {
 		"php": ">=7.4",

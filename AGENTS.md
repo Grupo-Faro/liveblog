@@ -1,14 +1,14 @@
-# Liveblog
+# El Faro Liveblogs
 
-Real-time liveblogging plugin for WordPress with a React-based editor and a comment-backed entry store.
+Real-time liveblogging plugin for El Faro's WordPress sites, derived from Automattic's Liveblog: React-based editor and a comment-backed entry store.
 
 ## Project knowledge
 
 | Property | Value |
 |----------|-------|
-| **Main file** | `liveblog.php` |
+| **Main file** | `elfaro-liveblogs.php` |
 | **Text domain** | `liveblog` |
-| **Version** | 1.12.3-elfaro.5 |
+| **Version** | 1.0.0 |
 | **Requires PHP** | 7.4+ |
 | **Requires WP** | 6.4+ |
 | **Default branch** | `develop` |
@@ -18,7 +18,7 @@ Real-time liveblogging plugin for WordPress with a React-based editor and a comm
 
 ```
 liveblog/
-├── liveblog.php          # Main plugin file
+├── elfaro-liveblogs.php  # Main plugin file
 ├── classes/              # Legacy PHP classes (WPCOM_Liveblog_*)
 ├── src/
 │   ├── react/            # React/Redux front-end (Lexical editor, live polling)
@@ -35,7 +35,7 @@ liveblog/
 
 ### Key classes and files
 
-* `WPCOM_Liveblog` (`liveblog.php`) — the central class. Heavily static. Owns most plugin wiring, the legacy `<permalink>/liveblog/*` AJAX endpoints (`ajax_*` methods), and the post-state machinery.
+* `WPCOM_Liveblog` (`elfaro-liveblogs.php`) — the central class. Heavily static. Owns most plugin wiring, the legacy `<permalink>/liveblog/*` AJAX endpoints (`ajax_*` methods), and the post-state machinery.
 * `WPCOM_Liveblog_Rest_Api` (`classes/class-wpcom-liveblog-rest-api.php`) — registers the modern `liveblog/v1` REST routes used by the React front end.
 * `WPCOM_Liveblog_Entry` (`classes/class-wpcom-liveblog-entry.php`) — wraps a single entry. Each entry is a WordPress comment.
 * `WPCOM_Liveblog_Entry_Query` (`classes/class-wpcom-liveblog-entry-query.php`) — query API for retrieving entries by time, ID, key-event status, etc.
@@ -46,6 +46,7 @@ liveblog/
 * `WPCOM_Liveblog_Lazyloader` — lazy-loading entries on the front end.
 * `WPCOM_Liveblog_AMP*` — AMP integration.
 * `WPCOM_Liveblog_WP_CLI` — `wp liveblog` commands (currently `fix-archive`).
+* `ElFaro_Liveblogs_Updater` — plugin updates from this repository's GitHub Releases (answers the `update_plugins_github.com` filter enabled by the `Update URI` header).
 
 ### Dependencies
 
@@ -87,7 +88,7 @@ npx wp-env start              # start local WordPress on http://localhost:8888
 * **Timestamp-bounded polling URLs.** Endpoints take the form `/liveblog/<start>/<end>/`, returning entries in that window. Closed ranges are cacheable forever.
 * **AJAX polling by default, WebSockets optional.** The plugin polls for updates by default. WebSocket support via Redis and Socket.IO is opt-in (`LIVEBLOG_USE_SOCKETIO`) and only used for public posts.
 * **Two parallel branches.** `develop` is the legacy-architecture mainline. `2.x` is a parallel modernized branch (DDD layout under `src/php/`, DI container, namespaced classes). Security fixes and important bug fixes are typically backported by hand. Architectural changes do **not** cross-port automatically.
-* **WordPress.org deployment.** A GitHub Actions workflow deploys to the WordPress.org SVN repository. Do not modify SVN assets manually.
+* **Standalone plugin, updated from GitHub Releases.** This is a detached fork of Automattic's Liveblog: folder `elfaro-liveblogs`, `Update URI` header pointing at this repository, and `ElFaro_Liveblogs_Updater` serving the latest Release's `elfaro-liveblogs.zip`. Pushing a `v*` tag runs the Release workflow that builds and publishes that zip. Nothing is deployed to wordpress.org.
 
 ## Common pitfalls
 
@@ -96,6 +97,6 @@ npx wp-env start              # start local WordPress on http://localhost:8888
 * **Run `composer cs` before committing.** CI rejects PHPCS violations.
 * **Integration tests require `npx wp-env start` to be running.** Otherwise they fail at bootstrap.
 * **Comment storage conflicts.** Entries are comments, so be careful with comment moderation, filtering, or other plugins that modify comment queries.
-* **Two version sources.** Versions live in `liveblog.php` (header + `LIVEBLOG_VERSION` constant) and `package.json`. Keep them in sync at release time.
+* **Two version sources.** Versions live in `elfaro-liveblogs.php` (header + `WPCOM_Liveblog::VERSION`) and `package.json`. Keep them in sync at release time; the Release workflow refuses a tag that does not match the header.
 * **Template tags are public API.** Helper functions exposed to themes (e.g. `wpcom_liveblog_get_output()`) are part of the public surface; do not rename or remove without a deprecation cycle.
 * **Static state in `WPCOM_Liveblog`.** The class holds static state (`$post_id`, `$is_rest_api_call`, cached `$entry_query`). Reset these explicitly in tests that need a clean slate.

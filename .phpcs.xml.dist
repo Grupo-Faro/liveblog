@@ -51,6 +51,8 @@
 		<properties>
 			<property name="prefixes" type="array">
 				<element value="liveblog"/>
+				<element value="elfaro"/>
+				<element value="ElFaro"/>
 			</property>
 		</properties>
 	</rule>
@@ -69,15 +71,15 @@
 		</properties>
 	</rule>
 
-	<!-- Main plugin file must be named liveblog.php, not class-wpcom-liveblog.php -->
+	<!-- Main plugin file must be named elfaro-liveblogs.php, not class-wpcom-liveblog.php -->
 	<rule ref="WordPress.Files.FileName.InvalidClassFileName">
-		<exclude-pattern>liveblog.php</exclude-pattern>
+		<exclude-pattern>elfaro-liveblogs.php</exclude-pattern>
 	</rule>
 
 	<!-- Legacy class naming convention uses WPCOM_Liveblog prefix -->
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound">
 		<exclude-pattern>*/classes/*</exclude-pattern>
-		<exclude-pattern>liveblog.php</exclude-pattern>
+		<exclude-pattern>elfaro-liveblogs.php</exclude-pattern>
 	</rule>
 
 	<!-- Auto-generated webpack asset files -->

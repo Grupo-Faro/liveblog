@@ -145,7 +145,7 @@ class WPCOM_Liveblog_AMP {
 	 * @return void
 	 */
 	public static function enqueue_styles() {
-		/** This filter is documented in liveblog.php */
+		/** This filter is documented in elfaro-liveblogs.php */
 		if ( apply_filters( 'liveblog_load_default_styles', true ) ) {
 			wp_enqueue_style( 'liveblog', plugin_dir_url( __DIR__ ) . 'build/amp.css', array(), WPCOM_Liveblog::VERSION );
 		}
@@ -225,7 +225,7 @@ class WPCOM_Liveblog_AMP {
 		// Only append metadata to Liveblogs.
 		if ( false !== WPCOM_Liveblog::is_liveblog_post( $post->ID ) ) {
 			/**
-			 * This filter is documented in liveblog.php
+			 * This filter is documented in elfaro-liveblogs.php
 			 */
 			$metadata = WPCOM_Liveblog::get_liveblog_metadata( $metadata, $post );
 		}

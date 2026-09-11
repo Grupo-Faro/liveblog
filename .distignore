@@ -16,6 +16,7 @@
 
 # Development configuration
 .babelrc
+.browserslistrc
 .distignore
 .editorconfig
 .eslintrc
@@ -40,6 +41,7 @@ package.json
 package-lock.json
 
 # Documentation (not needed in plugin distribution)
+AGENTS.md
 CHANGELOG.md
 CONTRIBUTING.md
 HACKING.md
@@ -50,3 +52,7 @@ phpunit.xml.dist
 
 # WP.com specific
 wpcom-helper.php
+
+# Build by-products
+*.map
+/build/*-rtl.css

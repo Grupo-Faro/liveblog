@@ -1,14 +1,24 @@
 <?php
 /**
- * Plugin Name: Liveblog
- * Plugin URI: http://wordpress.org/extend/plugins/liveblog/
- * Description: Empowers website owners to provide rich and engaging live event coverage to a large, distributed audience.
- * Version:     1.12.3-elfaro.5
+ * Plugin Name: El Faro Liveblogs
+ * Plugin URI: https://github.com/Grupo-Faro/liveblog
+ * Description: Coberturas en directo (minuto a minuto) para los diarios de El Faro, con actualizaciones en tiempo real y edición desde la propia página. Derivado del plugin Liveblog de WordPress.com VIP.
+ * Version:     1.0.0
  * Requires at least: 6.4
  * Requires PHP: 7.4
- * Author:      WordPress.com VIP, Big Bite Creative and contributors
- * Author URI: https://github.com/Automattic/liveblog/graphs/contributors
+ * Author:      Grupo Faro
+ * Author URI: https://elfarodeceuta.es
+ * Update URI: https://github.com/Grupo-Faro/liveblog
+ * License: GPLv2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: liveblog
+ * Domain Path: /languages
+ *
+ * El Faro Liveblogs is a detached fork of Liveblog by WordPress.com VIP, Big
+ * Bite Creative and contributors (https://github.com/Automattic/liveblog),
+ * released under the GPL-2.0-or-later. The "Update URI" header keeps
+ * wordpress.org from ever offering the original plugin as an update; new
+ * versions are published as GitHub Releases of this repository instead.
  *
  * @package Liveblog
  */
@@ -33,7 +43,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		 *
 		 * @var string
 		 */
-		const VERSION = '1.12.3-elfaro.5';
+		const VERSION = '1.0.0';
 
 		/**
 		 * Rewrites version for flushing rewrite rules.
@@ -280,6 +290,9 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 
 			// Activate the WP CRON Hooks.
 			WPCOM_Liveblog_Cron::load();
+
+			// Plugin updates come from this repository's GitHub Releases.
+			ElFaro_Liveblogs_Updater::load( __FILE__ );
 		}
 
 		/**
@@ -358,6 +371,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 			}
 
 			require __DIR__ . '/classes/class-wpcom-liveblog-cron.php';
+			require __DIR__ . '/classes/class-elfaro-liveblogs-updater.php';
 		}
 
 		/**
@@ -2453,3 +2467,26 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		require_once ABSPATH . 'wp-includes/media.php';
 	}
 endif;
+
+/*
+ * Activation: never leave the original wordpress.org "Liveblog" plugin active
+ * alongside this one. Both define the same classes and share the same data
+ * (entries are comments, the state is post meta), so only one may run; when
+ * both are present the second file loaded is silently skipped and the site
+ * keeps running the old code.
+ *
+ * Kept outside the class_exists() guard on purpose: while the original plugin
+ * is still active the class already exists, and this must still run.
+ */
+register_activation_hook(
+	__FILE__,
+	static function () {
+		if ( ! function_exists( 'is_plugin_active' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		if ( is_plugin_active( 'liveblog/liveblog.php' ) ) {
+			deactivate_plugins( 'liveblog/liveblog.php' );
+		}
+	}
+);

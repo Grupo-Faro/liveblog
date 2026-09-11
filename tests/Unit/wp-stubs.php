@@ -63,7 +63,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) {
 	 * Minimal WPCOM_Liveblog stub for unit testing.
 	 *
 	 * Contains only methods that can be tested without WordPress.
-	 * The real class is defined in liveblog.php but has too many
+	 * The real class is defined in elfaro-liveblogs.php but has too many
 	 * WordPress dependencies to load for unit tests.
 	 */
 	final class WPCOM_Liveblog {
