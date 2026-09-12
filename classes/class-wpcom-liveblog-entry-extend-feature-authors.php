@@ -125,6 +125,13 @@ class WPCOM_Liveblog_Entry_Extend_Feature_Authors extends WPCOM_Liveblog_Entry_E
 			'fields'     => array( 'user_nicename' ),
 		);
 
+		/**
+		 * Filters the WP_User_Query arguments used to find liveblog authors.
+		 *
+		 * @param array $args Query arguments; by default users holding `edit_posts`.
+		 */
+		$args = apply_filters( 'liveblog_author_query_args', $args );
+
 		// Map authors and store them on the object for use in callback.
 		$authors       = apply_filters( 'liveblog_author_list', get_users( $args ), '' );
 		$this->authors = array_map( array( $this, 'map_authors' ), $authors );
@@ -276,6 +283,9 @@ class WPCOM_Liveblog_Entry_Extend_Feature_Authors extends WPCOM_Liveblog_Entry_E
 			// login, nicename, and display name.
 			$args['search_columns'] = array( 'user_login', 'user_nicename', 'display_name' );
 		}
+
+		/** This filter is documented above in filter(). */
+		$args = apply_filters( 'liveblog_author_query_args', $args );
 
 		// Map the authors into the expected format.
 		$authors = apply_filters( 'liveblog_author_list', get_users( $args ), $term );

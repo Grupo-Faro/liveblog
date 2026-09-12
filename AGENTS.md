@@ -8,7 +8,7 @@ Real-time liveblogging plugin for El Faro's WordPress sites, derived from Automa
 |----------|-------|
 | **Main file** | `elfaro-liveblogs.php` |
 | **Text domain** | `liveblog` |
-| **Version** | 2026.9.0 |
+| **Version** | 2026.9.1 |
 | **Requires PHP** | 7.4+ |
 | **Requires WP** | 6.4+ |
 | **Default branch** | `develop` |
@@ -46,6 +46,7 @@ liveblog/
 * `WPCOM_Liveblog_Lazyloader` — lazy-loading entries on the front end.
 * `WPCOM_Liveblog_AMP*` — AMP integration.
 * `WPCOM_Liveblog_WP_CLI` — `wp liveblog` commands (currently `fix-archive`).
+* `ElFaro_Liveblogs_Settings` — "Settings → Liveblogs" page; the roles allowed to publish from the front end (replaces the `publish_posts` / `edit_post` gate through the `liveblog_current_user_can_edit_liveblog` filter).
 * `ElFaro_Liveblogs_Updater` — plugin updates from this repository's GitHub Releases (answers the `update_plugins_github.com` filter enabled by the `Update URI` header).
 
 ### Dependencies

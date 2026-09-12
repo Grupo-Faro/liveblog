@@ -716,7 +716,15 @@ class WPCOM_Liveblog_Entry {
 
 		// `user_can()` handles a non-existent user id by returning false; no
 		// additional `get_userdata()` round trip is needed.
-		return user_can( $user_id, 'edit_posts' );
+		$assignable = user_can( $user_id, 'edit_posts' );
+
+		/**
+		 * Filters whether a user may be set as an entry's author or contributor.
+		 *
+		 * @param bool $assignable Whether the user is assignable; holds `edit_posts` by default.
+		 * @param int  $user_id    Candidate user id.
+		 */
+		return (bool) apply_filters( 'liveblog_user_assignable_as_author', $assignable, $user_id );
 	}
 
 	/**

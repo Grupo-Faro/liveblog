@@ -18,6 +18,10 @@ El plugin conserva los mismos datos que el original (las entradas son comentario
 2. Plugins → Añadir nuevo → Subir plugin y activa "El Faro Liveblogs". Si el plugin original "Liveblog" estaba activo, se desactiva solo.
 3. Borra el plugin "Liveblog" original y purga la caché de página (W3TC).
 
+## Ajustes
+
+En **Ajustes → Liveblogs** se eligen los roles que pueden publicar desde la página del directo (añadir, editar y borrar entradas en cualquier post con un directo activo, sea quien sea su autor). Hasta que se guarda por primera vez se comporta como el plugin original: pueden publicar los roles con la capacidad `publish_posts` (administrador, editor y autor). Activar o archivar un directo se sigue haciendo desde el editor del post.
+
 ## Publicar una versión
 
 1. Sube la versión en `elfaro-liveblogs.php` (cabecera y `WPCOM_Liveblog::VERSION`) y en `package.json`, y anota los cambios en `CHANGELOG.md`.

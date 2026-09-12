@@ -3,7 +3,7 @@
  * Plugin Name: El Faro Liveblogs
  * Plugin URI: https://github.com/Grupo-Faro/liveblog
  * Description: Coberturas en directo (minuto a minuto) para los diarios de El Faro, con actualizaciones en tiempo real y edición desde la propia página. Derivado del plugin Liveblog de WordPress.com VIP.
- * Version:     2026.9.0
+ * Version:     2026.9.1
  * Requires at least: 6.4
  * Requires PHP: 7.4
  * Author:      Grupo Faro
@@ -43,7 +43,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		 *
 		 * @var string
 		 */
-		const VERSION = '2026.9.0';
+		const VERSION = '2026.9.1';
 
 		/**
 		 * Rewrites version for flushing rewrite rules.
@@ -293,6 +293,9 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 
 			// Plugin updates come from this repository's GitHub Releases.
 			ElFaro_Liveblogs_Updater::load( __FILE__ );
+
+			// Settings page; decides which roles may publish from the front end.
+			ElFaro_Liveblogs_Settings::load( __FILE__ );
 		}
 
 		/**
@@ -372,6 +375,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 
 			require __DIR__ . '/classes/class-wpcom-liveblog-cron.php';
 			require __DIR__ . '/classes/class-elfaro-liveblogs-updater.php';
+			require __DIR__ . '/classes/class-elfaro-liveblogs-settings.php';
 		}
 
 		/**
@@ -1782,7 +1786,12 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 			$new_state = isset( $_REQUEST['state'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['state'] ) ) : '';
 			// phpcs:enable
 
-			self::ajax_current_user_can_edit_liveblog_for_post( $post_id );
+			// Enabling or archiving a liveblog is an edit of the post, not entry
+			// publishing: it stays with users who can edit the post, whatever the
+			// publishing roles in the settings say.
+			if ( ! current_user_can( 'edit_post', $post_id ) ) {
+				self::send_forbidden_error( __( "Cheatin', uh?", 'liveblog' ) );
+			}
 			self::ajax_check_nonce();
 
 			$meta_box = self::admin_set_liveblog_state_for_post( $post_id, $new_state, $_REQUEST ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Nonce verified above.
@@ -2004,7 +2013,14 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 		 */
 		public static function current_user_can_edit_liveblog() {
 			$retval = current_user_can( apply_filters( 'liveblog_edit_cap', self::EDIT_CAP ) );
-			return (bool) apply_filters( 'liveblog_current_user_can_edit_liveblog', $retval );
+
+			/**
+			 * Filters whether the current user may publish liveblog entries.
+			 *
+			 * @param bool     $retval  Result of the capability check.
+			 * @param int|null $post_id Target post for post-scoped checks, null for the global check.
+			 */
+			return (bool) apply_filters( 'liveblog_current_user_can_edit_liveblog', $retval, null );
 		}
 
 		/**
@@ -2046,7 +2062,7 @@ if ( ! class_exists( 'WPCOM_Liveblog' ) ) :
 			$retval  = ( $post instanceof \WP_Post && current_user_can( 'edit_post', $post_id ) );
 
 			/** This filter is documented above in current_user_can_edit_liveblog(). */
-			return (bool) apply_filters( 'liveblog_current_user_can_edit_liveblog', $retval );
+			return (bool) apply_filters( 'liveblog_current_user_can_edit_liveblog', $retval, $post_id );
 		}
 
 		/**

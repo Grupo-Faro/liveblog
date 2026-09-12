@@ -1,5 +1,11 @@
 # Changelog
 
+## [2026.9.1] - 2026-09-12
+
+### Added
+
+* feat: "Settings → Liveblogs" page to choose which roles may publish from the front end. The selected roles replace the `publish_posts` capability and the per-post `edit_post` requirement for entry publishing, so a newsroom role can cover any active liveblog whoever wrote the post; until the settings are saved the behaviour is the upstream one (roles holding `publish_posts`). Users of those roles can also be credited as authors and appear in the author picker. Enabling or archiving a liveblog still requires editing the post. New filters: `liveblog_current_user_can_edit_liveblog` now receives the post id, `liveblog_user_assignable_as_author`, `liveblog_author_query_args`.
+
 ## [2026.9.0] - 2026-09-11
 
 First release as a standalone plugin, "El Faro Liveblogs". Versions follow `year.month.patch`: the repository inherited Automattic's historic `v1.0.0`…`v1.5rc` tags, so plain 1.x release tags would collide with them.

@@ -492,7 +492,7 @@ class WPCOM_Liveblog_Rest_Api {
 		$allowed = ( $post instanceof WP_Post && current_user_can( 'edit_post', $post_id ) );
 
 		/** This filter is documented in elfaro-liveblogs.php */
-		$allowed = (bool) apply_filters( 'liveblog_current_user_can_edit_liveblog', $allowed );
+		$allowed = (bool) apply_filters( 'liveblog_current_user_can_edit_liveblog', $allowed, $post_id );
 
 		if ( $allowed ) {
 			return true;

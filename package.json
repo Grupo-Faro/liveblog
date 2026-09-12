@@ -1,7 +1,7 @@
 {
   "name": "elfaro-liveblogs",
   "description": "El Faro Liveblogs: coberturas en directo para los diarios de El Faro (fork de Liveblog)",
-  "version": "2026.9.0",
+  "version": "2026.9.1",
   "author": "Grupo Faro",
   "private": true,
   "devDependencies": {

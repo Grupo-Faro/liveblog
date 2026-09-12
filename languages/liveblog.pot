@@ -663,3 +663,27 @@ msgstr ""
 #: liveblog.php
 msgid "Could not load more updates. Please try again."
 msgstr ""
+
+#: classes/class-elfaro-liveblogs-settings.php
+msgid "Liveblogs"
+msgstr ""
+
+#: classes/class-elfaro-liveblogs-settings.php
+msgid "Publishing permissions"
+msgstr ""
+
+#: classes/class-elfaro-liveblogs-settings.php
+msgid "Roles allowed to publish"
+msgstr ""
+
+#: classes/class-elfaro-liveblogs-settings.php
+msgid "Users with any of these roles can add, edit and delete entries from the page of any post with an active liveblog, whoever wrote the post. Enabling or archiving a liveblog still happens in the post editor, by users who can edit that post."
+msgstr ""
+
+#: classes/class-elfaro-liveblogs-settings.php
+msgid "No role is selected: nobody can publish from the liveblog page."
+msgstr ""
+
+#: classes/class-elfaro-liveblogs-settings.php
+msgid "Settings"
+msgstr ""
